@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: midtier-deployment
+  labels:
+    tier: mid
+spec:
+  replicas: 8
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25% 
+  selector:
+    matchLabels:
+      tier: mid
+  template:
+    metadata:
+      labels:
+        tier: mid
+    spec:
+      containers:
+      - name: myjavaapp-container
+        image: myjavaapp
+

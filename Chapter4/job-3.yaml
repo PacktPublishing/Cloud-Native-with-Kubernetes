@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: runner
+spec:
+  parallelism: 2
+  completions: 4
+  template:
+    spec:
+      containers:
+      - name: run-job
+        image: node:lts-jessie
+        command: ["node", “job.js”]
+      restartPolicy: Never
+  backoffLimit: 4
+

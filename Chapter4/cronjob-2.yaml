@@ -1,0 +1,17 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "0 1 * * *"
+  jobTemplate:
+    spec:
+      parallelism: 3
+      template:
+        spec:
+          containers:
+           - name: run-job
+             image: node:lts-jessie
+             command: ["node", “job.js”]
+          restartPolicy: OnFailure
+
