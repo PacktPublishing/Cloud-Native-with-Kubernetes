@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myApp
+spec:
+  containers:
+  - name: my-app
+    image: mydockername
+    command: ["run"]
+    ports:
+    - containerPort: 8080
+    livenessProbe:
+      httpGet:
+        path: /healthcheck
+        port: 8001
+        httpHeaders:
+        - name: My-Header
+          value: My-Header-Value
+        initialDelaySeconds: 3
+        periodSeconds: 3
+

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myApp
+spec:
+  containers:
+  - name: my-app
+    image: mydockername
+    command: ["run"]
+  initContainers:
+  - name: init-before
+    image: busybox
+    command: ['sh', '-c', 'until nslookup config-service; do echo config-service not up; sleep 2; done;']  
+

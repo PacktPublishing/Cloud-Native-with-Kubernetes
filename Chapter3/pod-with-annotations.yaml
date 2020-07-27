@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myApp
+  namespace: dev
+  labels:
+    environment: dev
+  annotations:
+    customid1: 998123hjhsad
+    customid2: 1239808908sd 
+spec:
+  containers:
+  - name: my-app-container
+    image: busybox
+

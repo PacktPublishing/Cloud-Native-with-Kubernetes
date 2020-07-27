@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myApp
+spec:
+  containers:
+  - name: my-app
+    image: mydockername
+    command: ["run"]
+  initContainers:
+  - name: init-step-1
+    image: step1-image
+    command: ['start-command’]  
+  - name: init-step-2
+    image: step2-image
+    command: ['start-command’]  
+
