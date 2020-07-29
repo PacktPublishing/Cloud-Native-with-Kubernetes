@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: multiple-branches-ingress
+spec:
+  rules:
+  - host: my.application.com
+    http:
+      paths:
+      - backend:
+          serviceName: service-a
+          servicePort: 80
+  - host: my.otherapplication.com
+    http:
+      paths:
+      - backend:
+          serviceName: service
+          servicePort: 80

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-svc
+  namespace: dev
+Spec:
+  type: ClusterIP
+  selector:
+    app: newly-containerized-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+

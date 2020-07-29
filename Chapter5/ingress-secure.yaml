@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: secured-ingress
+spec:
+  tls:
+  - hosts:
+    - my.application.com
+    secretName: my-tls-secret
+  rules:
+    - host: my.application.com
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: service-a
+            servicePort: 8080
+
