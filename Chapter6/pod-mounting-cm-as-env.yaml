@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod-mount-env
+spec:
+  containers:
+    - name: busybox
+      image: busybox
+      command:
+      - sleep
+      - "3600"
+      env:
+        - name: MY_ENV_VAR
+          valueFrom:
+            configMapKeyRef:
+              name: my-env-config-map
+              key: myconfigid
+  restartPolicy: Never
+

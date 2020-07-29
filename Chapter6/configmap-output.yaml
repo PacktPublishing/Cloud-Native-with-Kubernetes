@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myapp-config2
+  namespace: default
+data:
+  mycategory.mykey: myvalue
+  mycategory.mykey2: myvalue2
+
