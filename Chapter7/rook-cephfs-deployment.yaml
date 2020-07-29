@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: my-rook-fs-test
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25% 
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+ spec:
+  	  volumes:
+    	  - name: my-rook-ceph-pv
+        persistentVolumeClaim:
+          claimName: rook-ceph-pvc
+  	  containers:
+    	  - name: my-container
+         image: busybox
+         volumeMounts:
+         - mountPath: "/usr/rooktest"
+           name: my-rook-ceph-pv
+

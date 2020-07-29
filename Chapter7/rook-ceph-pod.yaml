@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-rook-test-pod
+spec:
+  volumes:
+    - name: my-rook-pv
+      persistentVolumeClaim:
+        claimName: rook-pvc
+  containers:
+    - name: my-container
+      image: busybox
+      volumeMounts:
+        - mountPath: "/usr/rooktest"
+          name: my-rook-pv
+

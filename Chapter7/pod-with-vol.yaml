@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-vol
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    volumeMounts:
+    - name: my-storage-volume
+      mountPath: /data
+  volumes:
+  - name: my-storage-volume
+    emptyDir: {}
+

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  volumes:
+    - name: my-pv
+      persistentVolumeClaim:
+        claimName: my-pv-claim
+  containers:
+    - name: my-container
+      image: busybox
+      volumeMounts:
+        - mountPath: "/usr/data"
+          name: my-pv
+
