@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: speedy-app
+spec:
+  containers:
+  - name: speedy-app
+    image: speedy-app:latest
+    imagePullPolicy: IfNotPresent
+  nodeName: node1
+

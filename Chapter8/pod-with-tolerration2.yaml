@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: slow-app
+spec:
+  containers:
+  - name: slow-app
+    image: slow-app:latest
+tolerations:
+- key: "cpu_speed"
+  operator: "Exists"
+  effect: "NoSchedule"
+

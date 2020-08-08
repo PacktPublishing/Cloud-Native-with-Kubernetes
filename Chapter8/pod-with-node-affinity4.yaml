@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: speedy-app-prefers-affinity
+spec:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 90
+        preference:
+          matchExpressions:
+          - key: cpu_speed
+            operator: Gt
+            values:
+            - “3”
+      - weight: 10
+        preference:
+          matchExpressions:
+          - key: memory_speed
+            operator: Gt
+            values:
+            - “4”
+  containers:
+  - name: speedy-app
+    image: speedy-app:latest
+

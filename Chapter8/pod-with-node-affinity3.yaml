@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: slow-app-affinity
+spec:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: cpu_speed
+            operator: Lt
+            values:
+            - “3”
+  containers:
+  - name: slow-app
+    image: slow-app:latest
+

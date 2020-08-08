@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: not-hungry-app-affinity
+spec:
+  affinity:
+    podAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 50
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: hunger
+              operator: Lt
+              values:
+              - “3”
+          topologyKey: rack
+  containers:
+  - name: not-hungry-app
+    image: not-hungry-app:latest
+

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: affinity-test
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: cpu_speed
+            operator: Gt
+            values:
+            - “5”
+          - key: memory_speed
+            operator: Gt
+            values:
+            - “4”
+  containers:
+  - name: speedy-app
+    image: speedy-app:latest
+
