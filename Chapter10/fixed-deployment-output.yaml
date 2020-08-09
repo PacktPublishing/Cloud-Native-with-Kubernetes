@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-1-pod
+spec:
+  selector:
+    matchLabels:
+      app: app-1
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - name: app-1
+        image: mycustomrepository/app-1:3
+        command: [ "start", "-color", "green" ]
+        ports:
+        - containerPort: 80
+

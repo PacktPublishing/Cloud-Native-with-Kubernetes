@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: app-2-ss
+spec:
+  selector:
+    matchLabels:
+      app: app-2
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: app-2
+    spec:
+      containers:
+  	- name: app-2
+    	  image: mycustomrepository/app-2:latest
+    	  volumeMounts:
+    	    - name: scratch
+      	      mountPath: /scratch
+  	- name: sidecar
+    	  image: mycustomrepository/tracing-sidecar
+  	  volumes:
+  	    - name: scratch-volume
+	      emptyDir: {}
+
