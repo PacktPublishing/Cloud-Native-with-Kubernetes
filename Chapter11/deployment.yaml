@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-myapp
+  labels:
+    app: frontend-myapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-myapp
+  template:
+    metadata:
+      labels:
+        app: frontend-myapp
+    spec:
+      containers:
+      - name: frontend-myapp
+        image: myrepo/myapp:1.0.0
+        ports:
+        - containerPort: 80
+

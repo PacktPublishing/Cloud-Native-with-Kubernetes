@@ -1,0 +1,11 @@
+kind: Kustomization
+resources:
+- deployment.yaml
+namespace: default
+commonLabels:
+  app: frontend-app
+images:
+  - name: frontend-myapp
+    newTag: 2.0.0
+    newName: frontend-app-1
+

@@ -1,0 +1,18 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: myapp
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: glob:myapp-v*
+spec:
+  releaseName: myapp
+  chart:
+    git: ssh://git@github.com/myuser/myrepo
+    ref: master
+    path: charts/myapp
+  values:
+    image:
+      repository: myrepo/myapp
+      tag: myapp-v2
+
