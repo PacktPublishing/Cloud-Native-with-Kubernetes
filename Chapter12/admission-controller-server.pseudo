@@ -1,0 +1,35 @@
+// This function is called when a request hits the 
+// “/mutate” endpoint 
+function acceptAdmissionWebhookRequest(req) 
+{ 
+  
+  // First, we need to validate the incoming req 
+  
+  // This function will check if the request is formatted properly 
+  // and will add a “valid” attribute If so 
+  // The webhook will be a POST request from Kubernetes in the 
+  // “AdmissionReviewRequest” schema 
+  req = validateRequest(req); 
+  
+  // If the request isn’t valid, return an Error 
+  if(!req.valid) return Error;  
+
+  // Next, we need to decide whether to accept or deny the Admission 
+  // Request. This function will add the “accepted” attribute 
+  req = decideAcceptOrDeny(req); 
+
+  if(!req.accepted) return Error; 
+
+  // Now that we know we want to allow this resource, we need to 
+  // decide if any “patches” or changes are necessary 
+  patch = patchResourceFromWebhook(req); 
+
+  // Finally, we create an AdmissionReviewResponse and pass it back 
+  // to Kubernetes in the response 
+  // This AdmissionReviewResponse includes the patches and 
+  // whether the resource is accepted. 
+  admitReviewResp = createAdmitReviewResp(req, patch); 
+
+  return admitReviewResp; 
+
+} 

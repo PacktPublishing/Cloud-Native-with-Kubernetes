@@ -1,0 +1,56 @@
+customRules: 
+  my-rules.yaml: |- 
+    
+    - rule: Launch Privileged Container 
+      desc: Detect the initial process started in a privileged container. Exceptions are made for known trusted images. 
+      condition: > 
+        container_started and container 
+        and container.privileged=true 
+        and not falco_privileged_containers 
+        and not user_privileged_containers 
+      output: Privileged container started (user=%user.name command=%proc.cmdline %container.info image=%container.image.repository:%container.image.tag) 
+      priority: INFO 
+      tags: [container, cis, mitre_privilege_escalation, mitre_lateral_movement]
+    
+    - macro: container 
+      condition: (container.id != host) 
+    
+    - macro: container_started 
+      condition: > 
+        ((evt.type = container or 
+         (evt.type=execve and evt.dir=< and proc.vpid=1)) and 
+         container.image.repository != incomplete) 
+    
+    - macro: user_sensitive_mount_containers 
+      condition: (container.image.repository = docker.io/sysdig/agent) 
+    
+    - macro: falco_privileged_containers 
+      condition: (openshift_image or 
+              user_trusted_containers or 
+              container.image.repository in (trusted_images) or 
+              container.image.repository in (falco_privileged_images) or 
+              container.image.repository startswith istio/proxy_ or 
+              container.image.repository startswith quay.io/sysdig) 
+    
+    - macro: user_privileged_containers 
+      condition: (container.image.repository endswith sysdig/agent)
+    
+    - list: trusted_images 
+      items: []
+    
+    - rule: Create Disallowed Pod 
+      desc: > 
+        Detect an attempt to start a pod with a container image outside of a list of allowed images. 
+      condition: kevt and pod and kcreate and not allowed_k8s_containers 
+      output: Pod started with container not in allowed list (user=%ka.user.name pod=%ka.resp.name ns=%ka.target.namespace images=%ka.req.pod.containers.image) 
+      priority: WARNING 
+      source: k8s_audit 
+      tags: [k8s]
+    
+    - rule: Create HostNetwork Pod 
+      desc: Detect an attempt to start a pod using the host network. 
+      condition: kevt and pod and kcreate and ka.req.pod.host_network intersects (true) and not ka.req.pod.containers.image.repository in (falco_hostnetwork_images) 
+      output: Pod started using host network (user=%ka.user.name pod=%ka.resp.name ns=%ka.target.namespace images=%ka.req.pod.containers.image) 
+      priority: WARNING 
+      source: k8s_audit 
+      tags: [k8s]     

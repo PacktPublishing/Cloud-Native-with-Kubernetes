@@ -1,0 +1,12 @@
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: specific-user-pod 
+spec: 
+  securityContext: 
+    runAsUser: 1000 
+  containers: 
+  - name: test 
+    image: busybox 
+    securityContext: 
+      allowPrivilegeEscalation: false 

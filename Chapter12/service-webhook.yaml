@@ -1,0 +1,10 @@
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: my-custom-webhook-server 
+spec: 
+  selector: 
+    app: my-custom-webhook-server 
+  ports: 
+    - port: 443 
+      targetPort: 8443  

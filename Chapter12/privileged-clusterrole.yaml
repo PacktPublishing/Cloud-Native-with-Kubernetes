@@ -1,0 +1,10 @@
+apiVersion: rbac.authorization.k8s.io 
+kind: ClusterRole 
+metadata: 
+  name: privileged-role 
+rules: 
+- apiGroups: ['policy'] 
+  resources: ['podsecuritypolicies'] 
+  verbs:     ['use'] 
+  resourceNames: 
+  - privileged-psp 
