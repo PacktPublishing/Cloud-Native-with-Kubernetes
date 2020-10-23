@@ -1,0 +1,17 @@
+// The analysis function
+function analyzeDelayedJobs(listOfDelayedJobs) {
+  var listOfJobsToSchedule = [];
+  foreach(dj in listOfDelayedJobs) {
+    // Check if dj has been scheduled, if not, add a Job object with
+    // added delay command to the to schedule array
+    if(dj.annotations[”is-scheduled”] != “true”) {
+      listOfJobsToSchedule.push({
+        Image: dj.image,
+        Command: “sleep “ + dj.delaySeconds + “s”,
+        originalDjName: dj.name
+      });
+    }
+  }
+  return listOfJobsToSchedule;  
+}
+

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    k8s-app: cloud-controller-manager
+  name: cloud-controller-manager
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      k8s-app: cloud-controller-manager
+  template:
+    metadata:
+      labels:
+        k8s-app: cloud-controller-manager
+    spec:
+      serviceAccountName: cloud-controller-manager
+      containers:
+      - name: cloud-controller-manager
+        image: k8s.gcr.io/cloud-controller-manager:<current ccm version for your version of k8s>
+        command:
+        - /usr/local/bin/cloud-controller-manager
+        - --cloud-provider=<cloud provider name>
+        - --leader-elect=true
+        - --use-service-account-credentials
+        - --allocate-node-cidrs=true
+        - --configure-cloud-routes=true
+        - --cluster-cidr=<CIDR of the cluster based on Cloud Provider>
+      tolerations:
+      - key: node.cloudprovider.kubernetes.io/uninitialized
+        value: "true"
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      nodeSelector:
+        node-role.kubernetes.io/master: ""
+

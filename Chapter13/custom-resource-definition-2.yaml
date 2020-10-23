@@ -1,0 +1,47 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: delayedjob.delayedresources.mydomain.com
+spec:
+  group: delayedresources.mydomain.com
+  versions:
+    - name: v1
+      served: true
+      storage: false
+      deprecated: true
+      deprecationWarning: "DelayedJob v1 is deprecated!”
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                delaySeconds:
+                  type: integer
+                image:
+                  type: string
+    - name: v2
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                delaySeconds:
+                  type: integer
+                image:
+                  type: string
+  scope: Namespaced
+  conversion:
+    strategy: None
+  names:
+    plural: delayedjobs
+    singular: delayedjob
+    kind: DelayedJob
+    shortNames:
+    - dj
+

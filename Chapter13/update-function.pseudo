@@ -1,0 +1,17 @@
+// The update function
+function scheduleDelayedJobs(listOfJobs) {
+  foreach(job in listOfDelayedJobs) {
+    // First, go ahead and schedule a regular Kubernetes Job
+    // which the Kube scheduler can pick up on.
+    // The delay seconds have already been added to the job spec
+    // in the analysis step
+    kubeAPIConnector.create(“job”, job.image, job.command);
+    // Finally, mark our original DelayedJob with a “scheduled”
+    // attribute so our controller doesn’t try to schedule it again
+    kubeAPIConnector.update(”delayedjob”, job.originalDjName,
+    annotations: {
+      “is-scheduled”: “true”
+    });
+  } 
+}
+

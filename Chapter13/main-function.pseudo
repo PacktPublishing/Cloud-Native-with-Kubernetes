@@ -1,0 +1,14 @@
+// The main function of our controller
+function main() {
+  // While loop which runs forever
+  while() {
+     // fetch the full list of delayed job objects from the cluster
+	var currentDelayedJobs = kubeAPIConnector.list(“delayedjobs”);
+     // Call the Analysis step function on the list
+     var jobsToSchedule = analyzeDelayedJobs(currentDelayedJobs);
+     // Schedule our Jobs with added delay
+     scheduleDelayedJobs(jobsToSchedule);
+     wait(5000);
+  }
+}
+

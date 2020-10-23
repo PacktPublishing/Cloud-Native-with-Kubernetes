@@ -1,0 +1,8 @@
+apiVersion: delayedresources.mydomain.com/v1
+kind: DelayedJob
+metadata:
+  name: my-instance-of-delayed-job
+spec:
+  delaySeconds: 6000
+  image: “busybox”
+
