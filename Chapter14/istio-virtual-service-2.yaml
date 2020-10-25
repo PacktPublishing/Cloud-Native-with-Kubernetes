@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: myapplication
+spec:
+  hosts:
+  - service-a
+  http:
+    route:
+    - destination:
+        host: service-backend-a
+        subset: v1
+

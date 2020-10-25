@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: myapplication
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - myapplication-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /app
+    - uri:
+        prefix: /frontend
+    route:
+    - destination:
+        host: service-frontend
+        subset: v1
+

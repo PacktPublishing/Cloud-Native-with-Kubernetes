@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-1
+    spec:
+      containers:
+      - name: service1
+        image: ravirdv/http-responder:latest
+        ports:
+          - containerPort: 5000
+            protocol: TCP
+            name: response-port
+

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: my-service
+    spec:
+      containers:
+      - name: envoy
+        image: envoyproxy/envoy:latest
+        ports:
+          - containerPort: 9901
+            protocol: TCP
+            name: envoy-admin
+          - containerPort: 8786
+            protocol: TCP
+            name: envoy-web
+        volumeMounts:
+          - name: envoy-config-volume
+            mountPath: /etc/envoy-config/
+        command: ["/usr/local/bin/envoy"]
+        args: ["-c", "/etc/envoy-config/config.yaml", "--v2-config-only", "-l", "info","--service-cluster","myservice","--service-node","myservice", "--log-format", "[METADATA][%Y-%m-%d %T.%e][%t][%l][%n] %v"]
+      - name: my-service
+        image: ravirdv/http-responder:latest
+        ports:
+        - containerPort: 5000
+          name: svc-port
+          protocol: TCP
+      volumes:
+        - name: envoy-config-volume
+          configMap:
+            name: envoy-config
+            items:
+              - key: envoy-config
+                path: config.yaml
+

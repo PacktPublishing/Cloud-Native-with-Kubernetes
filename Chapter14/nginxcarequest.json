@@ -1,0 +1,11 @@
+{
+  "CN": "server",
+  "hosts": [
+    ""
+  ],
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  }
+}
+

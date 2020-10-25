@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: myapp
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: myapp
+ template:
+   metadata:
+     labels:
+       app: myapp
+   spec:
+     containers:
+     - name: myapp
+       image: ravirdv/http-responder:latest
+       imagePullPolicy: IfNotPresent
+     - name: nginx-sidecar
+       image: nginx
+       imagePullPolicy: IfNotPresent
+       volumeMounts:
+         - name: secrets
+           mountPath: /app/cert
+         - name: config
+           mountPath: /etc/nginx/nginx.conf
+           subPath: nginx.conf
+    volumes:
+     - name: secrets
+       secret:
+         secretName: nginx-certificates
+         items:
+           - key: server-cert
+             path: server.pem
+           - key: server-key
+             path: server-key.pem
+     - name: config
+       configMap:
+         name: nginx-configuration
+

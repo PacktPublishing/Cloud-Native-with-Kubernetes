@@ -1,0 +1,19 @@
+{
+   "CN": "mydomain.com",
+   "hosts": [
+       "mydomain.com",
+       "www.mydomain.com"
+   ],
+   "key": {
+       "algo": "rsa",
+       "size": 2048
+   },
+   "names": [
+       {
+           "C": "US",
+           "ST": "MD",
+           "L": "United States"
+       }
+   ]
+}
+
