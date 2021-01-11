@@ -16,7 +16,7 @@ spec:
   	- name: app-2
     	  image: mycustomrepository/app-2:latest
     	  volumeMounts:
-    	    - name: scratch
+    	    - name: scratch-volume
       	      mountPath: /scratch
   	- name: sidecar
     	  image: mycustomrepository/tracing-sidecar
