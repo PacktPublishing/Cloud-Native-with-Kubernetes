@@ -4,7 +4,7 @@
 
 This is the code repository for [Cloud Native with Kubernetes](https://www.packtpub.com/cloud-networking/cloud-native-with-kubernetes?utm_source=github&utm_medium=repository&utm_campaign=9781838823078), published by Packt.
 
-**Deploy, configure, and run modern cloud native applications on Kubernetes**
+**Cloud Native with Kubernetes, published by Packt**
 
 ## What is this book about?
 Kubernetes is a modern cloud native container orchestration tool and one of the most popular open source projects worldwide. In addition to the technology being powerful and highly flexible, Kubernetes engineers are in high demand across the industry.
