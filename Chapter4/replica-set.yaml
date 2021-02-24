@@ -16,5 +16,4 @@ spec:
     spec:
       containers:
       - name: myapp-container
-        image: busybox
-
+        image: nginx
