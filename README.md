@@ -62,3 +62,4 @@ We also provide a PDF file that has color images of the screenshots/diagrams use
 ## Get to Know the Author
 **Alexander Raul**
 is CEO of Rackner, an innovative consultancy that builds, runs, and secures Kubernetes and the Cloud for clients ranging from highly funded startups, to Fortune and Global 500 enterprises. With Rackner, he has personally built and managed large Kubernetes-based platforms, and implemented end to end DevSecOps for organizations. Though his background and education is technical (he received an Aerospace Degree from the University of Maryland), he is well versed in the business and strategic arguments for the cloud and Kubernetes - as well as the issues around adoption of these technologies. Alexander lives in Washington, D.C. - and when he isn’t working with clients, he’s mountaineering, skiing, or running marathons.
+
